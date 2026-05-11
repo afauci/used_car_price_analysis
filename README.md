@@ -4,6 +4,7 @@
 In this assignment, we used a dataset of used cars to help determine what car features have the most impact on the price of a used car. To do this, I created regression models with price as the target variable, and used cross validation and feature selection techniques to find the most influential features.
 
 ## Notebook link
+https://github.com/afauci/used_car_price_analysis/blob/main/car_data_analysis.ipynb
 
 ## Process
 1) Data understanding and preparation
