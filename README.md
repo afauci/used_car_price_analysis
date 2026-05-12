@@ -10,7 +10,7 @@ https://github.com/afauci/used_car_price_analysis/blob/main/car_data_analysis.ip
 1) Data understanding and preparation
 - I looked at the data structure such as the columns available, their types, and counts of null values, to help determine what data needed to be cleaned or encoded. I also did some initial visualization of the data to understand the price distribution, identify outliers, and see things like manufacturer price ranges.
 - I cleaned the data - I removed columns that would not be helpful (like VIN), or had too many null values to be useful (like size). I also removed rows that seemed like errors or anomolies - for example if the price was below $200 or above $500,000, or the odometer was above 500k (or negative)
-- I encoded the data - many of the columns were categorical, which meant that they needed to be encoded in order to build regression models. I mostly used one-hot encoding, but for things like manufacturer with lots of different values, I did target encoding based on the mean price for each manufacturer. I also dropped some columns like state, region, and model where there were so many different values
+- I encoded the data - many of the columns were categorical, which meant that they needed to be encoded in order to build regression models. I mostly used one-hot encoding where the reference column was the mode, but for things like manufacturer with lots of different values, I did target encoding based on the mean price for each manufacturer. I also dropped some columns like state, region, and model where there were so many different values
 - I scaled the numerical values to help normalize the data and ensure that the large numbers (like odometer) did not have outsized impact on the model
 - I split the data into the training and test sets, so that when we did the modeling we could do analysis
 - At the end of this process, I had X rows and Y columns that 
@@ -32,11 +32,16 @@ https://github.com/afauci/used_car_price_analysis/blob/main/car_data_analysis.ip
 	- Year: we converted the year to vehicle age of the car so it was easier to analyze. Newer years (lower vehicle age), were associated with higher prices
 	- Manufacturer: in order to do the analysis for manufacturers, we did target encoding to replace the manufacturer with the mean car price for that manufacturer so it was a numerical column. This means that a high coefficient value indicates that there is a strong correlation between manufacturer and price, even when other price lowering factors are present
 	- Drive: for one hot encoding, we used the mode (all wheel drive) as the reference. Compared to all wheel drive, rear wheel drive was associated with a slightly lower price, and front wheel drive was even lower.
-- Based on this information, the car dealership should focus on building out inventory for cars with:
+	- Cylinder: 6 cylinders (the most common value) was used as the reference value for encoding. Based on the coefficients found, cars with more cylinders went for higher prices.
+	- Type: the most common type value was "other", which is hard to assess. However, based on the coefficients for the other type categories, pickup trucks sold for the highest prices, then SUVs, then hatchbacks, then sedans.
+- Based on this information, the car dealership should focus on building out inventory for cars with the following attributes to maximize the price they can sell them for:
 	- Lower mileage
-	- Fuel type diesel if available (though this is not very common in standard cars, so may not be worth optimizing for)
+	- Diesel fuel cars if available (though this is not very common compared to gas cars, so likely does not make sense to over compensate for)
 	- Newer year
-	- Manufacturers like Ram, GMC, Lexus, and Mercedes Benz, though they shoudl consider diversifying thier inventory to include some lower tier brands like Honda and Nissan, espcially if mileage and vehicle age are low
+	- Manufacturers like Ram, GMC, Lexus, and Mercedes Benz, though adding some lower price brands may help diversify their client base
 	- All wheel drive cars
+	- 6 cylinder cars or higher
+	- Pickup trucks when available, and SUVs
+- Now that the models are built, we could use them to predict the price of a car being added to the used car lot. This could be used by the car salesperson to set a reasonable starting price, since it helps ground it in historical data. It's important to note that it will not account for market trends or individuals specific behavior.
 
 
