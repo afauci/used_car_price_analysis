@@ -42,6 +42,6 @@ https://github.com/afauci/used_car_price_analysis/blob/main/car_data_analysis.ip
 	- All wheel drive cars
 	- 6 cylinder cars or higher
 	- Pickup trucks when available, and SUVs
-- Now that the models are built, we could use them to predict the price of a car being added to the used car lot. This could be used by the car salesperson to set a reasonable starting price, since it helps ground it in historical data. It's important to note that it will not account for market trends or individuals specific behavior.
+- Now that the models are built, we could use them to predict the price of a car being added to the used car lot. This could be used by the car salesperson to set a reasonable starting price, since it helps ground it in historical data. It's important to note that it will not account for market trends or individual's specific behavior.
 
 
